@@ -82,18 +82,30 @@ if ($products_in_cart) {
 // Send the user to the place order page if they click the Place Order button, also the cart should not be empty
 if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
   // webhooks
-  $bot_token = '6187140365:AAENohLqZ1UCDqzXDju3P6lsb6bAY7BIpLA';
-  $chat_id = '2132226096';
+  $bot_token = '6187140365:AAENohL-x-x-x-x-x';
+  $chat_id = '213-x-x-x';
 
-  $name = "kochdragon";
-  $age = "22";
-  $gender = "Male";
-  $phone = "096 9886 692";
-  $acc_telegram = "https://t.me/KochDragonBot";
-  $email = "kochdragonkdg@gmail.com";
-  $location = "Trung Morn st, Khan Mean Chey, Phnom Penh, Cambodia";
+  $id = "ClientID";
+  $name = "ClientName";
+  $phone = "";
+  $acc_telegram = "";
+  $email = "";
+  $location = "";
   $date = date('m/d/Y h:i:s a', time());
   $orders = "";
+
+  if (isset($_POST["phone"])) {
+    $phone = $_POST["phone"];
+  }
+  if (isset($_POST["telegram"])) {
+    $acc_telegram = $_POST["telegram"];
+  }
+  if (isset($_POST["email"])) {
+    $email = $_POST["email"];
+  }
+  if (isset($_POST["location"])) {
+    $location = $_POST["location"];
+  }
 
   foreach ($products as $product) {
     $orders .= "\n=> ID: " . $product['id'] .
@@ -108,9 +120,8 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
     'chat_id' => $chat_id,
     'text' => "* New message order {$num_items_in_cart} products: " .
       "\nProduct Orders: {$orders}" .
+      "\nClientID: {$id}" .
       "\nName: {$name}" .
-      "\nAge: {$age}" .
-      "\nGender: {$gender}" .
       "\nPhone: {$phone}" .
       "\nTelegram: {$acc_telegram}" .
       "\nEmail: {$email}" .
@@ -182,6 +193,28 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
     <div class="subtotal">
       <span class="text">Subtotal</span>
       <span class="price">&dollar;<?= $subtotal ?></span>
+    </div>
+    <div class="contact" style="display: block; margin-bottom: 2rem;">
+      <div class="row" style="display: flex; flex-flow: row wrap; gap: 2rem; margin-bottom: 1rem;">
+        <div class="col-4" style="flex: 1 250px;">
+          <label for="phone" style="width: 100%;">Phone</label><br />
+          <input type="text" id="phone" name="phone" style="width: 100%; padding: 0.5rem 0.75rem; margin-top: 0.5rem;" placeholder="Enter your phone number" required />
+        </div>
+        <div class="col-4" style="flex: 1 250px;">
+          <label for="telegram">Telegram</label><br />
+          <input type="text" id="telegram" name="telegram" style="width: 100%; padding: 0.5rem 0.75rem; margin-top: 0.5rem;" placeholder="Enter your telegram account" required />
+        </div>
+        <div class="col-4" style="flex: 1 250px;">
+          <label for="email">Email</label><br />
+          <input type="email" id="email" name="email" style="width: 100%; padding: 0.5rem 0.75rem; margin-top: 0.5rem;" placeholder="Enter your email address" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="location">Location</label><br />
+          <textarea id="location" name="location" rows="5" cols="45" style="width: 100%; padding: 0.5rem 0.75rem; margin-top: 0.5rem;" placeholder="Enter your location"></textarea>
+        </div>
+      </div>
     </div>
     <div class="buttons">
       <input type="submit" value="Update" name="update">
