@@ -2,10 +2,10 @@
 function pdo_connect_mysql()
 {
   // Update the details below with your MySQL details
-  $DATABASE_HOST = 'sql205.epizy.com';
-  $DATABASE_USER = 'epiz_33861760';
-  $DATABASE_PASS = 'Huqj2mt45zUUM';
-  $DATABASE_NAME = 'epiz_33861760_chat_gpt';
+  $DATABASE_HOST = 'localhost';
+  $DATABASE_USER = 'root';
+  $DATABASE_PASS = '';
+  $DATABASE_NAME = 'chat_gpt';
   try {
     return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
   } catch (PDOException $exception) {
